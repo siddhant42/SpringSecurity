@@ -1,0 +1,14 @@
+/home/siddhant/projects/SpringSecurity/src/main/java/com/example/springsecurity/entity/User.java
+/home/siddhant/projects/SpringSecurity/src/main/java/com/example/springsecurity/controller/UserController.java
+/home/siddhant/projects/SpringSecurity/src/main/java/com/example/springsecurity/security/ApplicationUserRole.java
+/home/siddhant/projects/SpringSecurity/src/main/java/com/example/springsecurity/service/MyUserDetailsService.java
+/home/siddhant/projects/SpringSecurity/src/main/java/com/example/springsecurity/SpringSecurityExampleApplication.java
+/home/siddhant/projects/SpringSecurity/src/main/java/com/example/springsecurity/repository/UserRepository.java
+/home/siddhant/projects/SpringSecurity/src/main/java/com/example/springsecurity/service/RoleService.java
+/home/siddhant/projects/SpringSecurity/src/main/java/com/example/springsecurity/security/ApplicationUserPermission.java
+/home/siddhant/projects/SpringSecurity/src/main/java/com/example/springsecurity/utils/CommonUtils.java
+/home/siddhant/projects/SpringSecurity/src/main/java/com/example/springsecurity/repository/RoleRepository.java
+/home/siddhant/projects/SpringSecurity/src/main/java/com/example/springsecurity/entity/Role.java
+/home/siddhant/projects/SpringSecurity/src/main/java/com/example/springsecurity/security/ApplicationSecurityConfig.java
+/home/siddhant/projects/SpringSecurity/src/main/java/com/example/springsecurity/service/UserService.java
+/home/siddhant/projects/SpringSecurity/src/main/java/com/example/springsecurity/service/UserDetailsImpl.java

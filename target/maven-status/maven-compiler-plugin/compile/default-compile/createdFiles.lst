@@ -1,0 +1,14 @@
+com/example/springsecurity/SpringSecurityExampleApplication.class
+com/example/springsecurity/service/UserDetailsImpl.class
+com/example/springsecurity/security/ApplicationUserPermission.class
+com/example/springsecurity/service/RoleService.class
+com/example/springsecurity/service/UserService.class
+com/example/springsecurity/service/MyUserDetailsService.class
+com/example/springsecurity/entity/User.class
+com/example/springsecurity/utils/CommonUtils.class
+com/example/springsecurity/controller/UserController.class
+com/example/springsecurity/repository/UserRepository.class
+com/example/springsecurity/repository/RoleRepository.class
+com/example/springsecurity/security/ApplicationSecurityConfig.class
+com/example/springsecurity/security/ApplicationUserRole.class
+com/example/springsecurity/entity/Role.class
