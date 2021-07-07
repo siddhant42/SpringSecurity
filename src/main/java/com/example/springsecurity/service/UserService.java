@@ -38,26 +38,31 @@ public class UserService {
 		return userRepo.findAll();
 	}
 	
-	public void registerNewUser(@RequestBody User user) {
+	public String registerNewUser(@RequestBody User user) {
+		if(userRepo.findByEmail(user.getEmail()).isPresent()) {
+			return "email already exist";
+		}
 		if(user.getPassword()!=null) {
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 		}
+		String nextUsername = findNextUsername(user.getEmail());
+		user.setUsername(nextUsername);
+		user.setActive(true);
 		Role role = roleService.getDefaultRole();
 		user.setRoles(new ArrayList<>(Arrays.asList(role)));
 		userRepo.saveAndFlush(user);
+		return "user created";
 	}
 
-//	public void updateUser(int id, User user) {
-//			User user1 = userRepo.getOne(id);
-//			merge(user1,user);
-//	}
-	public void updateUser(String email, User user) {
-		Optional<User> user1 = userRepo.findByEmail(email);
-		user1.ifPresent(x->merge(x,user));
+	public void updateUser(String username, User user) {
+		Optional<User> user1 = userRepo.findByUsername(username);
+		if(user1.isPresent() && user1.get().isActive()) {
+			 merge(user1.get(),user);
+		}
 	}
 
-	public User getUserById(int id) {
-		User user = userRepo.findById(id).orElseThrow(()-> new IllegalStateException("user does not exist"));
+	public User getUserByUsername(String username) {
+		User user = userRepo.findByUsername(username).orElseThrow(()-> new IllegalStateException("user does not exist"));
 		return user;
 	}
 	
@@ -67,8 +72,6 @@ public class UserService {
 			user1.setEmail(user2.getEmail());
 		if(user2.getPassword()!=null) 
 			user1.setPassword(passwordEncoder.encode(user2.getPassword()));
-		if(user2.getIsActive()!=null) 
-			user1.setIsActive(user2.getIsActive());
 		userRepo.saveAndFlush(user1);
 	}
 
@@ -79,11 +82,32 @@ public class UserService {
 //		userRepo.save(user.get());
 //		return new UserDetailsImpl(user.get());
 //	}
-	
+	public boolean checkUsername(String username) {
+		return userRepo.findByUsername(username).isPresent();
+	}
+	private synchronized String findNextUsername(String email) {
+		boolean flag = true;
+		String user = email.substring(0, email.indexOf('@'));
+		if(!userRepo.findByUsername(user).isPresent()) return user;
+		int previd = 1;
+		int nextid = 1;
+		while(flag) {
+			user = user+nextid;
+			flag = userRepo.findByUsername(user).isPresent();
+			previd = nextid;
+			nextid = previd+nextid;
+		}
+		return user;
+	}
 
-
-//	public User getUserByEmail(String email){
-//		return userRepo.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("user does not exist"));
-//	}
+	public void deleteuser(String username) {
+		Optional<User> user = userRepo.findByUsername(username);
+		if(user.isPresent()) {
+			User user1 = user.get();
+			user1.setActive(false);
+			userRepo.saveAndFlush(user1);
+		}
+		
+	}
 	
 }

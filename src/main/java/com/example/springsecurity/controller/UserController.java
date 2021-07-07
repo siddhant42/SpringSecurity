@@ -3,6 +3,7 @@ package com.example.springsecurity.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +16,7 @@ import com.example.springsecurity.entity.User;
 import com.example.springsecurity.service.UserService;
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/users")
 public class UserController {
 	@Autowired
 	UserService userService;
@@ -24,29 +25,24 @@ public class UserController {
 	public List<User> getAllUsers() {
 		return userService.getAllUsers();
 	}
-	@GetMapping(path="/{id}")
-	public User getUserById(@PathVariable("id")int id) {
-		return userService.getUserById(id);
+	@GetMapping(path="/{username}")
+	public User getUserById(@PathVariable("username")String username) {
+		return userService.getUserByUsername(username);
 	}
-//	@GetMapping(path="/{email}")
-//	public User getUserByEmail(@PathVariable("email") String email) {
-//		return userService.getUserByEmail(email);
-//	}
+
 	@PostMapping
-	public void registerNewUser(@RequestBody User user) {
-		userService.registerNewUser(user);
+	public String registerNewUser(@RequestBody User user) {
+		return userService.registerNewUser(user);
 	}
-//	@PutMapping(path ="/{id}")
-//	public void updateUser(@PathVariable("id")int id,@RequestBody User user) {
-//		userService.updateUser(id,user);
-//	}
-	@PutMapping(path ="/{email}")
-	public void updateUser(@PathVariable("email")String email,@RequestBody User user) {
-		userService.updateUser(email,user);
+
+	@PutMapping(path ="/{username}")
+	public void updateUser(@PathVariable("username")String username,@RequestBody User user) {
+		userService.updateUser(username,user);
 	}
-//	@PutMapping(path ="/password/{id}")
-//	public void updatePassword(@PathVariable("id")int id, @RequestBody User user) {
-//		UserDetails userDetails = new UserDetailsImpl(user);
-//		userService.updatePassword(userDetails, user.getPassword());
-//	}
+	
+	@DeleteMapping(path="/{username}")
+	public void deleteuser(@PathVariable("username")String username) {
+		userService.deleteuser(username);
+	}
+
 }

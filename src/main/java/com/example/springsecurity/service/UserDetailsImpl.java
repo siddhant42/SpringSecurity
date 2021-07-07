@@ -22,13 +22,7 @@ public class UserDetailsImpl implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-//        List<Role> roles = user.getRoles();
-//        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-//         
-//        for (Role role : roles) {
-//            authorities.add(new SimpleGrantedAuthority(role.getName()));
-//        }
-         
+		
 		String[] userRoles = user.getRoles().stream().map((role) -> role.getName()).toArray(String[]::new);
         Collection<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(userRoles);
         return authorities;
@@ -42,7 +36,7 @@ public class UserDetailsImpl implements UserDetails {
 	@Override
 	public String getUsername() {
 
-		return user.getEmail();
+		return user.getUsername();
 	}
 
 	@Override
@@ -62,7 +56,7 @@ public class UserDetailsImpl implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return user.getIsActive();
+		return user.isActive();
 	}
 
 }
